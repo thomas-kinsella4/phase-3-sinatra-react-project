@@ -6,9 +6,9 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
-  # get "/cards" do 
-  #   Card.all.to_json
-  # end
+  get "/cards" do 
+    Card.all.to_json
+  end
 
   # get "/card/:id" do 
   #   Card.find(params[:id]).to_json(include: :buyer)
