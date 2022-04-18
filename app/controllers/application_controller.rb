@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/cards" do 
-    Card.all.to_json
+    Card.all.to_json(include: :seller)
   end
 
   # get "/card/:id" do 
