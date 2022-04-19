@@ -1,3 +1,5 @@
+require "pry"
+
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
@@ -8,6 +10,16 @@ class ApplicationController < Sinatra::Base
 
   get "/cards" do 
     Card.all.to_json(include: :seller)
+  end
+
+  post "/sellers" do
+    Seller.create(name: params[:name], phone_number: params[:phone_number])
+    binding.pry
+  end
+
+  post "/cards" do 
+    Card.create(card_name: params[:card_name], image: params[:image], price: params[:price], seller_id: Seller.last.id)
+    binding.pry
   end
 
   # get "/card/:id" do 
