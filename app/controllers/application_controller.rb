@@ -9,17 +9,33 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/cards" do 
-    Card.all.to_json(include: :seller)
-  end
-
-  post "/sellers" do
-    Seller.create(name: params[:name], phone_number: params[:phone_number])
-    binding.pry
+    Card.all.to_json
   end
 
   post "/cards" do 
     Card.create(card_name: params[:card_name], image: params[:image], price: params[:price], seller_id: Seller.last.id)
-    binding.pry
+  end
+
+  get "/cards/:id" do 
+    Card.find(params[:id]).to_json
+  end
+
+  get "/purchases" do
+    Card.where("buyer_id = 1").to_json
+  end
+
+  patch "/cards/:id" do 
+    boughtCard = Card.find(params[:id])
+    boughtCard.update(
+      buyer_id: 1
+    )
+    boughtCard.to_json
+  end
+
+  delete "/cards/:id" do
+    delete_card = Card.find(params[:id])
+    delete_card.destroy
+    delete_card.to_json
   end
 
   # get "/card/:id" do 
